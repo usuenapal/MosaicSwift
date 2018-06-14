@@ -18,7 +18,7 @@ class MosaicPreview: UIViewController
         super.init(nibName: nil, bundle: nil)
         self.image = image
                 
-        self.view.frame = UIScreen.mainScreen().bounds
+        self.view.frame = UIScreen.main.bounds
     }
 
     required init?(coder aDecoder: NSCoder)
@@ -31,7 +31,7 @@ class MosaicPreview: UIViewController
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         self.previewImage.image = self.image        
     }
@@ -43,6 +43,6 @@ class MosaicPreview: UIViewController
         
     @IBAction func closeView()
     {
-        Animations.flipTransitionToRemoveView(self.view)
+        Animations.flipTransitionToRemoveView(view: self.view)
     }
 }
