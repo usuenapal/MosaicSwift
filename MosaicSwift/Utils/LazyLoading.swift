@@ -14,13 +14,12 @@ class LazyLoading: NSObject
     
     static func setViewWithImageUrl(url: String, view: UIImageView, activityIndicator: UIActivityIndicatorView)
     {        
-        //view.image = LazyLoading.getImageForUrl(url)
         activityIndicator.startAnimating()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let image = LazyLoading.getImageForUrl(url)
+        DispatchQueue.global(qos: .default).async() {
+            let image = LazyLoading.getImageForUrl(url: url)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 view.image = image
                 activityIndicator.stopAnimating()
             }
@@ -31,20 +30,24 @@ class LazyLoading: NSObject
     {
         var cache: NSMutableDictionary?
         
-        if let aux = NSUserDefaults.standardUserDefaults().objectForKey(kUDimagesCache) {
+        if let aux = UserDefaults.standard.object(forKey: kUDimagesCache) {
             cache = NSMutableDictionary(dictionary: aux as! [NSObject : AnyObject]);
         } else {
             cache = NSMutableDictionary(dictionary: NSDictionary());
         }
         
-        if let imageData = cache!.objectForKey(url) {
-            return UIImage(data: imageData as! NSData)!
+        if let imageData = cache!.object(forKey: url) {
+            return UIImage(data: (imageData as! NSData) as Data)!
         }
         
-        let imageData = NSData(contentsOfURL: NSURL(string: url)!)!
-        cache!.setObject(imageData, forKey: url)
-        NSUserDefaults.standardUserDefaults().setObject(cache, forKey: kUDimagesCache)
-
-        return UIImage(data: imageData)!
+        do {
+            let imageData = try Data(contentsOf: URL(string: url)!)
+            
+            cache!.setObject(imageData, forKey: url as NSCopying)
+            UserDefaults.standard.set(cache, forKey: kUDimagesCache)
+            return UIImage(data: imageData)!
+        } catch {
+            return UIImage()
+        }
     }
 }

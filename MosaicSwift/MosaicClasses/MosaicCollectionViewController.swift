@@ -18,7 +18,7 @@ class MosaicCollectionViewController: UICollectionViewController
     {
         super.viewDidLoad()
         
-        self.collectionView!.registerNib(UINib(nibName: "MosaicCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UINib(nibName: "MosaicCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning()
@@ -29,16 +29,15 @@ class MosaicCollectionViewController: UICollectionViewController
     
     // MARK: UICollectionViewDataSource
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return links.count;
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MosaicCell
-        
-        cell.configureMosaicCell(indexPath.row)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MosaicCell
+        cell.configureMosaicCell(row: indexPath.row)
                 
         return cell
     }
@@ -46,12 +45,12 @@ class MosaicCollectionViewController: UICollectionViewController
     
     // MARK: UICollectionViewDelegate
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MosaicCell
+        let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MosaicCell
         let preview = MosaicPreview(image: cell.cellImage.image!)
         
         self.addChildViewController(preview)
-        Animations.curlTransitionToView(preview.view, fromView: self.view);
+        Animations.curlTransitionToView(view: preview.view, fromView: self.view);
     }
 }

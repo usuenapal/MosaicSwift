@@ -12,15 +12,15 @@ class Animations: NSObject
 {
     static func curlTransitionToView(view: UIView, fromView: UIView)
     {
-        UIView.transitionWithView(fromView, duration: 0.8, options: UIViewAnimationOptions.TransitionCurlDown, animations:{
+        UIView.transition(with: fromView, duration: 0.8, options: UIViewAnimationOptions.transitionCurlDown, animations:{
             fromView.addSubview(view)
             }, completion: nil)
     }
     
     static func flipTransitionToRemoveView(view: UIView)
     {
-        UIView.transitionWithView(view, duration: 0.8, options: UIViewAnimationOptions.TransitionFlipFromRight, animations:{
-            view.hidden = true
+        UIView.transition(with: view, duration: 0.8, options: UIViewAnimationOptions.transitionFlipFromRight, animations:{
+            view.isHidden = true
             }, completion:{finished in view.removeFromSuperview()})
     }
 }

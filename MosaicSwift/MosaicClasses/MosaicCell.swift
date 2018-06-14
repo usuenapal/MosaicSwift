@@ -23,8 +23,8 @@ class MosaicCell: UICollectionViewCell
         self.tag = row
                 
         self.cellImage.image = nil
-        self.cellImage.contentMode = UIViewContentMode.ScaleAspectFill
+        self.cellImage.contentMode = UIViewContentMode.scaleAspectFill
         
-        LazyLoading.setViewWithImageUrl(Links.arrayOfLinks[row], view: cellImage, activityIndicator: actView)
+        LazyLoading.setViewWithImageUrl(url: Links.arrayOfLinks[row], view: cellImage, activityIndicator: actView)
     }
 }
