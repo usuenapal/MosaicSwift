@@ -20,11 +20,10 @@ class MosaicCell: UICollectionViewCell
             
     func configureMosaicCell(row: NSInteger)
     {
-        self.tag = row
+        tag = row
                 
-        self.cellImage.image = nil
-        self.cellImage.contentMode = UIViewContentMode.scaleAspectFill
-        
+        cellImage.image = nil
+        cellImage.contentMode = UIViewContentMode.scaleAspectFill
         LazyLoading.setViewWithImageUrl(url: Links.arrayOfLinks[row], view: cellImage, activityIndicator: actView)
     }
 }
