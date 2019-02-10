@@ -33,7 +33,7 @@ class MosaicPreview: UIViewController
     
     override func viewWillAppear(_ animated: Bool)
     {
-        self.previewImage.image = self.image        
+        previewImage.image = image        
     }
 
     override func didReceiveMemoryWarning()

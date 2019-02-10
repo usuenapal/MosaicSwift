@@ -52,6 +52,7 @@ class MosaicLayout: UICollectionViewLayout
                 layoutAttributes.append(attributes)
             }
         }
+        
         return layoutAttributes
     }
     

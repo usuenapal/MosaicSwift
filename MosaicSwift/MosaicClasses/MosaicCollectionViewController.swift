@@ -18,7 +18,7 @@ class MosaicCollectionViewController: UICollectionViewController
     {
         super.viewDidLoad()
         
-        self.collectionView!.register(UINib(nibName: "MosaicCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.register(UINib(nibName: "MosaicCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning()
@@ -50,7 +50,7 @@ class MosaicCollectionViewController: UICollectionViewController
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MosaicCell
         let preview = MosaicPreview(image: cell.cellImage.image!)
         
-        self.addChildViewController(preview)
-        Animations.curlTransitionToView(view: preview.view, fromView: self.view);
+        addChildViewController(preview)
+        Animations.curlTransitionToView(view: preview.view, fromView: view);
     }
 }
